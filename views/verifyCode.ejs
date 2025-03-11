@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Code</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .otp-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .otp-input {
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s;
+        }
+        .otp-input:focus {
+            border-color: #4f6367;
+        }
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            color: #ffffff;
+            background-color: #38b2ac;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #246f6c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Verify Your Code</h2>
+        <form action="/verifyCode" method="POST">
+            <div class="otp-container">
+                <input type="text" maxlength="1" class="otp-input" id="digit-1" name="digit1" 
+                       oninput="moveToNext(this, 'digit-2')" 
+                       onkeydown="handleBackspace(event, 'digit-1', '')">
+                <input type="text" maxlength="1" class="otp-input" id="digit-2" name="digit2" 
+                       oninput="moveToNext(this, 'digit-3')" 
+                       onkeydown="handleBackspace(event, 'digit-2', 'digit-1')">
+                <input type="text" maxlength="1" class="otp-input" id="digit-3" name="digit3" 
+                       oninput="moveToNext(this, 'digit-4')" 
+                       onkeydown="handleBackspace(event, 'digit-3', 'digit-2')">
+                <input type="text" maxlength="1" class="otp-input" id="digit-4" name="digit4" 
+                       oninput="moveToNext(this, 'digit-5')" 
+                       onkeydown="handleBackspace(event, 'digit-4', 'digit-3')">
+                <input type="text" maxlength="1" class="otp-input" id="digit-5" name="digit5" 
+                       oninput="moveToNext(this, 'digit-6')" 
+                       onkeydown="handleBackspace(event, 'digit-5', 'digit-4')">
+                <input type="text" maxlength="1" class="otp-input" id="digit-6" name="digit6" 
+                       oninput="moveToNext(this, '')" 
+                       onkeydown="handleBackspace(event, 'digit-6', 'digit-5')">
+            </div>
+            
+            <button type="submit" class="btn">Verify</button>
+        </form>
+    </div>
+
+    <script>
+        function moveToNext(current, nextFieldID) {
+            if (current.value.length === 1 && nextFieldID) {
+                document.getElementById(nextFieldID).focus();
+            }
+        }
+    
+        function handleBackspace(event, currentFieldID, prevFieldID) {
+            if (event.key === "Backspace") {
+                const currentField = document.getElementById(currentFieldID);
+    
+                // Clear the current field's value on the first backspace
+                if (currentField.value === "") {
+                    // Move to the previous field if available
+                    if (prevFieldID) {
+                        const prevField = document.getElementById(prevFieldID);
+                        prevField.focus();
+                        prevField.value = ""; // Clear the previous field
+                    }
+                } else {
+                    currentField.value = ""; // Clear the current field's value
+                }
+            }
+        }
+    </script>
+    
+</body>
+</html>

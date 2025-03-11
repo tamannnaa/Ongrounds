@@ -45,8 +45,11 @@
                                 <i class="fas fa-lock text-gray-400"></i>
                             </div>
                             <input type="password" id="password" name="password" required 
-                                class="pl-10 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                                class="pl-10 pr-10 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                                 placeholder="••••••••">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" onclick="togglePassword()">
+                                <i id="toggleIcon" class="fas fa-eye text-gray-400"></i>
+                            </div>
                         </div>
                     </div>
                     
@@ -71,5 +74,18 @@
             </div>
         </div>
     </div>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleIcon.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                toggleIcon.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        }
+    </script>
 </body>
 </html>
