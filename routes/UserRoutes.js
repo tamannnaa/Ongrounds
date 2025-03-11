@@ -90,19 +90,18 @@ router.post('/login', async (req, res) => {
             email: user.email
         };
 
-        return res.status(200).json({
-            message: 'Login successful',
-            user: {
-                id: user._id,
-                username: user.username,
-                email: user.email
-            }
-        });
+        return res.redirect('/dashboard');
+
     } catch (error) {
         console.error('Login error:', error);
         return res.status(500).json({ message: 'Server error during login' });
     }
 });
+
+router.get('/dashboard', isAuthenticated, (req, res) => {
+    res.render('dashboard', { user: req.session.user });
+});
+
 
 // Logout
 router.get('/logout', (req, res) => {
