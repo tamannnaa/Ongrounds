@@ -162,7 +162,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.post('/verify', (req, res) => {
+router.post('/verifyCode', (req, res) => {
     const { code } = req.body;
 
     if (!req.session.verificationCode || !req.session.userEmail) {
