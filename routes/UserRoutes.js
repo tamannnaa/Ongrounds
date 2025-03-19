@@ -6,15 +6,6 @@ const crypto = require("crypto");
 
 const {sendEmail} = require("./emailsmtp");
 
-const generateUniqueId = async () => {
-    let id;
-    do {
-        id = Math.floor(100000000 + Math.random() * 900000000).toString(); // Generates a 9-digit ID
-    } while (await Patient.exists({ mpd: id })); // Check if the ID already exists
-    return id;
-};
-
-
 const verificationEmailTemplate = (code) => `
     <div style="font-family: Arial, sans-serif; color: #333;">
         <div style="background-color:rgb(16, 71, 68); padding: 10px;">
